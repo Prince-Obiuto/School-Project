@@ -1,7 +1,7 @@
 /*Authors: Amam Prince 20211268042
  * Anayochukwu John-Bosco
- * Amaobi Victor
- * Amaechi Victory
+ * Amaobi Victor Chison 20211260402
+ * Amaechi Victory Chisom 20211269772
  * Amaechi Henry
  * Amaedo Christian
  * Amaefula Excel
