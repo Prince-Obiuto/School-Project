@@ -3,7 +3,7 @@
  * Amaobi Victor Chison 20211260402
  * Amaechi Victory Chisom 20211269772
  * Amaechi Henry
- * Amaedo Christian
+ * Amado Christian
  * Amaefula Excel
  * 
  * A Program to calculate the Area of Circle and a sector of 65 degrees.
