@@ -25,7 +25,7 @@ public class AreaOfACircle {
 		this.radiusOfTheCircle = radiusOfTheCircle;
 		this.areaOfTheCircle  = areaOfTheCircle;
 		this.areaOfTheSector = areaOfTheCircle;
-// Setting the value of the constants pi and angle of the sector
+// Step 4: Setting the value of the constants pi and angle of the sector
 		this.pi = 3.142;
 		this.angle = 65.0;
 	}
@@ -43,14 +43,16 @@ public class AreaOfACircle {
 		
 		this.areaOfTheCircle = areaOfTheCircle();
 		this.areaOfTheSector = areaOfTheSector();
+
+		Scanner.close();
 	}
 	
-	// Formula to calculate for the Area of the circle
+	// Step 5: Formula to calculate for the Area of the circle
 	private double areaOfTheCircle() {
 		return pi * Math.pow(radiusOfTheCircle, 2);
 	}
 	
-	// Formula to calculate for the Area of the sector
+	// Step 5: Formula to calculate for the Area of the sector
 	private double areaOfTheSector() {
 		return (angle/360) * pi * Math.pow(radiusOfTheCircle, 2);
 	}
@@ -62,7 +64,7 @@ public class AreaOfACircle {
 		
 		areaOfACircle.setValuesFromInput();
 		
-		// Print the results
+		// Step 7: Print/display the result.
 		System.out.println("Area of the circle is: " + areaOfACircle.areaOfTheCircle);
 		System.out.println("Area of the given sector is: " + areaOfACircle.areaOfTheSector);
 		System.out.println("Calculation Complete!");
