@@ -25,6 +25,7 @@ public class AreaOfACircle {
 		this.radiusOfTheCircle = radiusOfTheCircle;
 		this.areaOfTheCircle  = areaOfTheCircle;
 		this.areaOfTheSector = areaOfTheCircle;
+// Setting the value of the constants pi and angle of the sector
 		this.pi = 3.142;
 		this.angle = 65.0;
 	}
@@ -34,7 +35,9 @@ public class AreaOfACircle {
 		@SuppressWarnings("resource")
 		Scanner userInput = new Scanner(System.in);
 		
+// Step 1: Welcome the user
 		System.out.println("Welcome to Group 2 CIT202 IFT Project");
+// Step 2:Prompt for the radius
 		System.out.println("Input the Value Of The Radius");
 		this.radiusOfTheCircle = userInput.nextInt();
 		
@@ -49,7 +52,7 @@ public class AreaOfACircle {
 	
 	// Formula to calculate for the Area of the sector
 	private double areaOfTheSector() {
-		return (angle/2) * Math.pow(radiusOfTheCircle, 2);
+		return (angle/360) * pi * Math.pow(radiusOfTheCircle, 2);
 	}
 	
 	// Class to create a new object and parse the print values arguments 
@@ -59,7 +62,7 @@ public class AreaOfACircle {
 		
 		areaOfACircle.setValuesFromInput();
 		
-		// print statements
+		// Print the results
 		System.out.println("Area of the circle is: " + areaOfACircle.areaOfTheCircle);
 		System.out.println("Area of the given sector is: " + areaOfACircle.areaOfTheSector);
 		System.out.println("Calculation Complete!");
