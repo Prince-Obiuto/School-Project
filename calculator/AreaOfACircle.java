@@ -3,8 +3,8 @@
  * Amaobi Victor Chison 20211260402
  * Amaechi Victory Chisom 20211269772
  * Amaechi Henry Chibuike 20211289782
- * Amado Christian 20211289962
- * Amaefula Excel 20211260402
+ * Amado Christian Obinna 20211289962
+ * Amaefula Excel Chidindu 20211260402
  * 
  * A Program to calculate the Area of Circle and a sector of 65 degrees.
  */
@@ -44,7 +44,7 @@ public class AreaOfACircle {
 		this.areaOfTheCircle = areaOfTheCircle();
 		this.areaOfTheSector = areaOfTheSector();
 
-		Scanner.close();
+		userInput.close();
 	}
 	
 	// Step 5: Formula to calculate for the Area of the circle
