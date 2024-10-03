@@ -1,2 +1,1 @@
-A class assignment on CIT202 for IFT group 2.
-This code implements/uses OOP concepts.
+All school projects and school related stuff will be published here
