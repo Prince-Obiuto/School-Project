@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Registration {
@@ -15,7 +16,14 @@ public class Registration {
     private String middleName;
     private String lastName;
     private String email;
-    private String eventName;
+    private String dateOfBirth;
+    private int regNumber;
+    private String schoolFaculty;
+    private String department;
+    private String nationality;
+    private String country;
+    private String state;
+    private boolean agreement;
 
     // Getters and Setters
     public Long getId() {
@@ -34,11 +42,11 @@ public class Registration {
         this.name = name;
     }
 
-    public String getName() {
+    public String getName1() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName1(String name) {
         this.name = name;
 
     public String getEmail() {
