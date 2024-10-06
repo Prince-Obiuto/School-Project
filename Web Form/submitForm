@@ -1,31 +1,55 @@
 package com.example.eventregistration.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
-public class Registration {
-
+public class Attendee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "First name is required")
+    @Size(min = 2, message = "First name must have at least 2 characters")
     private String firstName;
+
     private String middleName;
+
+    @NotNull(message = "Last name is required")
+    @Size(min = 2, message = "Last name must have at least 2 characters")
     private String lastName;
+
+    @NotNull(message = "Email is required")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotNull(message = "Date of birth is required")
     private String dateOfBirth;
-    private int regNumber;
+
+    @NotNull(message = "Registration number is required")
+    private String regNumber;
+
+    @NotNull(message = "School/Faculty is required")
     private String schoolFaculty;
+
+    @NotNull(message = "Department is required")
     private String department;
+
+    @NotNull(message = "Nationality is required")
     private String nationality;
+
     private String country;
+
+    @NotNull(message = "State is required")
     private String state;
+
+    @NotNull("Consent is required")
     private boolean agreement;
 
-    // Getters and Setters
+    // Getters and Setters...
+    
     public Long getId() {
         return id;
     }
@@ -34,20 +58,29 @@ public class Registration {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName1() {
-        return name;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setName1(String name) {
-        this.name = name;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getEmail() {
         return email;
@@ -57,11 +90,67 @@ public class Registration {
         this.email = email;
     }
 
-    public String getEventName() {
-        return eventName;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getRegNumber() {
+        return regNumber;
+    }
+
+    public void setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
+    }
+
+    public String getSchoolFaculty() {
+        return schoolFaculty;
+    }
+
+    public void setSchoolFaculty(String schoolFaculty) {
+        this.schoolFaculty = schoolFaculty;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public boolean isAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(boolean agreement) {
+        this.agreement = agreement;
     }
 }
