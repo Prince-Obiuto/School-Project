@@ -1,156 +1,108 @@
-package com.example.eventregistration.model;
+package com.princeobiuto.demo;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
 
-@Entity
-public class Attendee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@WebServlet("/submitForm")
+public class EventServlet extends HttpServlet {
 
-    @NotNull(message = "First name is required")
-    @Size(min = 2, message = "First name must have at least 2 characters")
-    private String firstName;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-    private String middleName;
+        // Get form data
+        String firstName = request.getParameter("first_name");
+        String middleName = request.getParameter("middle_name");
+        String lastName = request.getParameter("last_name");
+        String email = request.getParameter("email");
+        String dob = request.getParameter("dob");
+        String regNumber = request.getParameter("reg_number");
+        String faculty = request.getParameter("faculty");
+        String department = request.getParameter("department");
+        String nationality = request.getParameter("nationality");
+        String state = request.getParameter("state");
+        String country = request.getParameter("country");
 
-    @NotNull(message = "Last name is required")
-    @Size(min = 2, message = "Last name must have at least 2 characters")
-    private String lastName;
+        // Save data to MySQL
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc", "root", "princeobiuto");
 
-    @NotNull(message = "Email is required")
-    @Email(message = "Email should be valid")
-    private String email;
+            String query = "INSERT INTO attendees (first_name, middle_name, last_name, email, dob, reg_number, faculty, department, nationality, state, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, middleName);
+            pstmt.setString(3, lastName);
+            pstmt.setString(4, email);
+            pstmt.setString(5, dob);
+            pstmt.setString(6, regNumber);
+            pstmt.setString(7, faculty);
+            pstmt.setString(8, department);
+            pstmt.setString(9, nationality);
+            pstmt.setString(10, state);
+            pstmt.setString(11, country);
 
-    @NotNull(message = "Date of birth is required")
-    private String dateOfBirth;
+            pstmt.executeUpdate();
+            conn.close();
 
-    @NotNull(message = "Registration number is required")
-    private String regNumber;
+            // Send email after saving
+            sendEmail(email, firstName, lastName, regNumber);
 
-    @NotNull(message = "School/Faculty is required")
-    private String schoolFaculty;
+            // Send response to the client
+            response.getWriter().println("Information saved successfully! A confirmation email has been sent.");
 
-    @NotNull(message = "Department is required")
-    private String department;
-
-    @NotNull(message = "Nationality is required")
-    private String nationality;
-
-    private String country;
-
-    @NotNull(message = "State is required")
-    private String state;
-
-    @NotNull("Consent is required")
-    private boolean agreement;
-
-    // Getters and Setters...
-    
-    public Long getId() {
-        return id;
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("Registration failed!");
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private void sendEmail(String toEmail, String firstName, String lastName, String regNumber) {
+        final String fromEmail = "princeamam9.com"; // Your email
+        final String password = "Gudboi12345";  // Your email password
 
-    public String getFirstName() {
-        return firstName;
-    }
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
 
-    public String getMiddleName() {
-        return middleName;
-    }
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+            message.setSubject("Information Gathering Confirmation");
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
+            // Email content
+            String content = "Dear " + firstName + " " + lastName + ",\n\n"
+                    + "Thank you for providing us with your details for this experiment. Here are your details:\n"
+                    +"Name:" + firstName + " " + lastName +",\n"
+                    +"Date of Birth:" + dob + "\n"
+                    + "Registration Number: " + regNumber + "\n"
+                    +"Faculty:" + faculty + "\n"
+                    +"Department:" + department + "\n\n"
+                    + "Best regards,\nDev Team";
 
-    public String getLastName() {
-        return lastName;
-    }
+            message.setText(content);
+            Transport.send(message);
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getRegNumber() {
-        return regNumber;
-    }
-
-    public void setRegNumber(String regNumber) {
-        this.regNumber = regNumber;
-    }
-
-    public String getSchoolFaculty() {
-        return schoolFaculty;
-    }
-
-    public void setSchoolFaculty(String schoolFaculty) {
-        this.schoolFaculty = schoolFaculty;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public boolean isAgreement() {
-        return agreement;
-    }
-
-    public void setAgreement(boolean agreement) {
-        this.agreement = agreement;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }
