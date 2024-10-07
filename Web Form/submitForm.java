@@ -14,7 +14,7 @@ import javax.mail.internet.*;
 import java.util.Properties;
 
 @WebServlet("/submitForm")
-public class WebformServlet extends HttpServlet {
+public class submitForm extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
